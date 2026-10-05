@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { daftarTidur, hitungDurasi, formatDurasi } from './dataTidur';
 import { styles } from './styles';
 
-// Custom function: dijalankan ketika tombol ditekan.
+// Custom function untuk membuka informasi aplikasi dari tombol.
 function tampilkanInfo() {
   Alert.alert(
     'Tentang SleepTrack',
@@ -32,27 +32,27 @@ export default function App() {
           {daftarTidur.length} data contoh · Tanggal mengikuti hari bangun
         </Text>
 
-        {/* Loop: map mengubah setiap object menjadi kartu. */}
-        {daftarTidur.map((catatan) => {
-          const durasi = hitungDurasi(catatan.jamTidur, catatan.jamBangun);
+        {/* Loop: setiap object pada daftar ditampilkan sebagai kartu tidur. */}
+        {daftarTidur.map(({ id, tanggal, nama, jamTidur, jamBangun }) => {
+          const durasi = hitungDurasi(jamTidur, jamBangun);
 
           return (
-            <View key={catatan.id} style={styles.kartu}>
-              <Text style={styles.tanggal}>{catatan.tanggal}</Text>
-              <Text style={styles.nama}>{catatan.nama}</Text>
+            <View key={id} style={styles.kartu}>
+              <Text style={styles.tanggal}>{tanggal}</Text>
+              <Text style={styles.nama}>{nama}</Text>
 
               <View style={styles.baris}>
                 <View style={styles.kolom}>
                   <Text style={styles.label}>Jam tidur</Text>
-                  <Text style={styles.jam}>{catatan.jamTidur}</Text>
+                  <Text style={styles.jam}>{jamTidur}</Text>
                 </View>
                 <View style={styles.kolom}>
                   <Text style={styles.label}>Jam bangun</Text>
-                  <Text style={styles.jam}>{catatan.jamBangun}</Text>
+                  <Text style={styles.jam}>{jamBangun}</Text>
                 </View>
               </View>
 
-              {/* Inline style: ditulis langsung pada komponen. */}
+              {/* Inline style khusus untuk teks durasi tidur. */}
               <Text style={{ color: '#5145a6', fontWeight: '700', marginTop: 16 }}>
                 Durasi tidur: {formatDurasi(durasi)}
               </Text>

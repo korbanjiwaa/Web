@@ -1,4 +1,4 @@
-// Type: menentukan properti dan tipe data setiap catatan.
+// Type: struktur data yang wajib dimiliki setiap catatan tidur.
 export type CatatanTidur = {
   id: number;
   nama: string;
@@ -7,7 +7,7 @@ export type CatatanTidur = {
   jamBangun: string;
 };
 
-// Array of Objects: satu array berisi beberapa object CatatanTidur.
+// Array of Objects: kumpulan catatan dengan tipe CatatanTidur.
 // Gunakan jam berformat HH:MM (24 jam).
 export const daftarTidur: CatatanTidur[] = [
   { id: 1, nama: 'Bima', tanggal: '4 Oktober 2026', jamTidur: '22:00', jamBangun: '06:00' },
@@ -15,20 +15,16 @@ export const daftarTidur: CatatanTidur[] = [
   { id: 3, nama: 'Bima', tanggal: '3 Oktober 2026', jamTidur: '21:45', jamBangun: '05:00' },
 ];
 
-// Custom function: menghitung selisih waktu dalam menit.
+// Custom function: mengubah waktu HH:MM menjadi total menit.
+function ubahKeMenit(waktu: string): number {
+  const [jam, menit] = waktu.split(':').map(Number);
+  return jam * 60 + menit;
+}
+
+// Custom function: menghitung lama tidur, termasuk saat berganti hari.
 export function hitungDurasi(jamTidur: string, jamBangun: string): number {
-  const [jamMulai, menitMulai] = jamTidur.split(':').map(Number);
-  const [jamSelesai, menitSelesai] = jamBangun.split(':').map(Number);
-  const mulai = jamMulai * 60 + menitMulai;
-  const selesai = jamSelesai * 60 + menitSelesai;
-  let durasi = selesai - mulai;
-
-  // Jika melewati tengah malam, tambahkan jumlah menit dalam satu hari.
-  if (durasi < 0) {
-    durasi = durasi + 24 * 60;
-  }
-
-  return durasi;
+  const selisih = ubahKeMenit(jamBangun) - ubahKeMenit(jamTidur);
+  return selisih < 0 ? selisih + 24 * 60 : selisih;
 }
 
 export function formatDurasi(menit: number): string {
