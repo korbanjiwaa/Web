@@ -2,11 +2,15 @@
   "expo": {
     "name": "SleepTrack",
     "slug": "SleepTrack",
+    "scheme": "sleeptrack",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

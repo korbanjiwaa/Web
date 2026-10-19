@@ -1,5 +1,6 @@
 import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { router } from 'expo-router';
 import { daftarTidur, hitungDurasi, formatDurasi } from './dataTidur';
 import { styles } from './styles';
 
@@ -37,7 +38,13 @@ export default function App() {
           const durasi = hitungDurasi(jamTidur, jamBangun);
 
           return (
-            <View key={id} style={styles.kartu}>
+            <Pressable
+              key={id}
+              style={styles.kartu}
+              accessibilityRole="button"
+              accessibilityLabel={`Lihat detail tidur ${nama}, ${tanggal}`}
+              onPress={() => router.push({ pathname: '/detail', params: { id } })}
+            >
               <Text style={styles.tanggal}>{tanggal}</Text>
               <Text style={styles.nama}>{nama}</Text>
 
@@ -56,7 +63,8 @@ export default function App() {
               <Text style={{ color: '#5145a6', fontWeight: '700', marginTop: 16 }}>
                 Durasi tidur: {formatDurasi(durasi)}
               </Text>
-            </View>
+              <Text style={styles.petunjuk}>Ketuk untuk melihat detail</Text>
+            </Pressable>
           );
         })}
 
@@ -67,7 +75,7 @@ export default function App() {
         >
           <Text style={styles.teksTombol}>Tentang aplikasi</Text>
         </Pressable>
-        <Text style={styles.footer}>SleepTrack · Modul 1 · Data contoh</Text>
+        <Text style={styles.footer}>SleepTrack · Modul 2 · Data contoh</Text>
       </ScrollView>
     </View>
   );

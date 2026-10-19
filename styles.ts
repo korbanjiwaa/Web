@@ -32,4 +32,5 @@ export const styles = StyleSheet.create({
   tombol: { backgroundColor: '#5145a6', borderRadius: 12, padding: 16, alignItems: 'center', marginTop: 8 },
   teksTombol: { color: '#ffffff', fontSize: 14, fontWeight: '700' },
   footer: { color: '#706b80', fontSize: 12, textAlign: 'center', marginTop: 24 },
+  petunjuk: { color: '#706b80', fontSize: 12, marginTop: 12 },
 });
